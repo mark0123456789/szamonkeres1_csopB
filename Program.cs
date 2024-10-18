@@ -9,47 +9,48 @@ namespace számonkérés1B_csoport
 {
     internal class Program
     {
-        public static bool kartya() 
+        public static bool kartya()
         {
-            bool vanekartya = false;
-            string eldontes = "";
-            Console.WriteLine("rendelkezik e törzsvásárlói kártyával");
-            eldontes = Console.ReadLine();
-            if (eldontes == "igen") vanekartya = true;
-           return vanekartya;
+            Console.WriteLine("Rendelkezik-e törzsvásárlói kártyával? (igen/nem)");
+            string eldontes = Console.ReadLine();
+            return eldontes.ToLower() == "igen";
         }
+
         public static int penz()
         {
-            int FizetendoOsszeg = 0;
-            Console.WriteLine("mekkora a fizetendő összeg?");
-            FizetendoOsszeg = Convert.ToInt32(Console.ReadLine());
-            return FizetendoOsszeg;
+            Console.WriteLine("Mekkora a fizetendő összeg?");
+            return Convert.ToInt32(Console.ReadLine());
         }
+
         public static void osszeg()
         {
-            if (kartya() == true)
+            bool vanKartya = kartya();
+            int fizetendoOsszeg = penz();
+
+            if (vanKartya)
             {
-                if (penz() < 10000)
+                if (fizetendoOsszeg < 10000)
                 {
-                    Console.WriteLine(penz());
+                    Console.WriteLine(fizetendoOsszeg);
                 }
-                else if ( penz() < 50001) {
-                    Console.WriteLine(penz()-(penz() / 100 * 5));
-                }
-                else if (penz() > 50001)
+                else if (fizetendoOsszeg < 50001)
                 {
-                    Console.WriteLine( penz()-(penz() / 10));
+                    Console.WriteLine(fizetendoOsszeg - (fizetendoOsszeg / 100 * 5));
+                }
+                else
+                {
+                    Console.WriteLine(fizetendoOsszeg - (fizetendoOsszeg / 10));
                 }
             }
-            else Console.WriteLine(penz());
+            else
+            {
+                Console.WriteLine(fizetendoOsszeg);
+            }
         }
 
         static void Main(string[] args)
         {
-            kartya();
-            penz();
             osszeg();
-
         }
     }
 }
